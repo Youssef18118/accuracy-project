@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Analyst Profile</title>
+  <link href="https://unpkg.com/tabulator-tables@5.5.1/dist/css/tabulator.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.1/dist/js/tabulator.min.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <style> /* Add some inline styles for profile layout */
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .profile-info {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-picture {
+      width: 100px; /* Adjust as needed */
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #ddd; /* Placeholder color */
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/navbar', { navbar: navbar }) %>
+  <div class="profile-container">
+    <div class="profile-picture">
+      <img src="https://via.placeholder.com/100" alt="Analyst Profile Picture">  </div>
+    <div class="profile-info">
+      <h2><%= analyst.name %> (<%= analyst.organization %>)</h2>
+      <p><strong>Number of Predictions:</strong> 5</p>
+      <p><strong>Total Score:</strong> <%= analyst.total_score %></p>
+    </div>
+
+    <div id="prediction-table"></div> <div id="prediction-table"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tableData = [
+        ['2023-12-15', 'Apple', 150, 175, '+16.67%', 'Buy'],
+        ['2023-11-30', 'Tesla', 250, 220, '-12%', 'Sell'],
+        ['2023-11-10', 'Samsung', 70, 75, '+7.14%', 'Hold'],
+        ['2023-10-25', 'Amazon', 110, 125, '+13.64%', 'Buy'],
+        ['2023-10-05', 'Microsoft', 320, 350, '+9.38%', 'Buy']
+      ];
+
+      new Tabulator("#prediction-table", {
+        data: tableData,
+        className: "tabulator-light-theme",
+        layout: "fitDataFill",
+        columns: [
+          { title: "Date", field: "0" },
+          { title: "Company", field: "1" },
+          { title: "Prediction", field: "2" },
+          { title: "Actual", field: "3" },
+          { title: "% Diff", field: "4" },
+          { title: "Action", field: "5" }
+        ],
+        layout: "fitColumns"
+      });
+    });
+  </script>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

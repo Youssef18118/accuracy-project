@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= company.name %> - Details</title>
+  <link href="https://unpkg.com/tabulator-tables@5.5.1/dist/css/tabulator.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.1/dist/js/tabulator.min.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">  
+  <style>
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .company-info {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-picture { /* This will be a placeholder for now */
+      width: 100px; /* Adjust as needed */
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #ddd; /* Placeholder color */
+      margin-bottom: 10px;
+    }
+
+    .table-container { /* Add styles for the table container */
+        width: 80%; 
+        margin: 20px auto;
+        overflow-x: auto; /* Enable horizontal scrolling if table is too wide */
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/navbar', { navbar: navbar }) %>
+  <div class="profile-container">
+    <div class="profile-picture">
+      </div>
+    <div class="company-info">
+      <h2><%= company.name %></h2>
+      <p><%= company.description %></p> 
+    </div>
+
+    <div class="table-container">
+      <div id="prediction-table"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tableData = <%- JSON.stringify(analysts) %>; // Get analyst data for this company
+      new Tabulator("#prediction-table", {
+        data: tableData,
+        layout: "fitColumns",
+        columns: [
+          { title: "Analyst", field: "name" },
+          { title: "Organization", field: "organization" },
+          { title: "Prediction Date", field: "prediction_date", formatter: "datetime", formatterParams:{
+                inputFormat:"YYYY-MM-DDTHH:mm:ss.SSSZ",
+                outputFormat:"YYYY-MM-DD HH:mm"
+          } },
+          { title: "Prediction Price", field: "prediction_price" },
+          { title: "Current Price", field: "current_price" },
+          { title: "% Diff", field: "percent_diff" },
+          { title: "Total Score", field: "total_score" },
+        ],
+      });
+    });
+  </script>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

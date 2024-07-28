@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link href="https://unpkg.com/tabulator-tables@5.5.1/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.1/dist/js/tabulator.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <%- include('partials/navbar', { navbar: navbar }) %>
+    <p>Lists of experts, analysts shown in the table format based on the rank</p>
+    <div style="width: 100%">
+        <h1>Leaderboard</h1>
+        <div id="leaderboard-table"></div>
+    </div>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const tableData = <%- JSON.stringify(leaderboardData) %>; // Get data from Express
+
+            const table = new Tabulator("#leaderboard-table", {
+                data: tableData,
+                className:"tabulator-light-theme", // Apply the theme
+                columns: [
+                    { 
+                        title: "Name", 
+                        field: "name",
+                        cellClick: function(e, cell) {
+                            const analystId = cell.getRow().getData()._id; // Get analyst ID
+                            console.log('Redirecting to URL:', `/analyst/${analystId}`); // Log URL before redirect
+                            window.location.href = `/analyst/${analystId}`; // Redirect to detail page
+                        }},
+                    { title: "Organization", field: "organization" },
+                    { title: "Prediction Date", field: "prediction_date" },
+                    { 
+                        title: "Target",
+                        field: "target_company",
+                        cellClick: function (e, cell) {
+                            const companyName = cell.getValue();
+                            window.location.href = `/companies/${encodeURIComponent(companyName)}`;
+                        },
+                          // Add the formatter function here
+                        formatter: function(cell, formatterParams) {
+                            return cell.getValue();
+                        },
+                    },
+                    { title: "예측가", field: "prediction_price" },
+                    { title: "현재가", field: "current_price" },
+                    { title: "% diff", field: "percent_diff" },
+                    { 
+                        title: "Rating", 
+                        field: "total_score",
+                        formatter: function(cell, formatterParams) {
+                        const totalScore = cell.getValue();
+                        const starCount = Math.round(totalScore / 20); // Assuming max score is 100
+                        const stars = "⭐".repeat(starCount) + "☆".repeat(5 - starCount); // Use star emojis
+                        return stars;
+                    }
+                    }
+                ],
+                layout: "fitColumns", // Optional: Adjust layout if needed
+                pagination: "local",   // Enable local pagination
+                paginationSize: 10,    // 10 rows per page
+                paginationSizeSelector: [10, 20, 30, 50], // Optional: Add a page size selector
+            });
+        });
+    </script>
+    <%- include('partials/footer') %>
+</body>
+</html>
+

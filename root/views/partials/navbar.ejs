@@ -1,0 +1,21 @@
+<nav class="navbar">
+    <div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                <a class="nav-link" href="/leaderboard">Leaderboard</a>
+                <a class="nav-link" href="/companies">Companies</a>
+            </li>
+            <% if (navbar.isAuthenticated) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mypage">My Page</a>
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</nav>

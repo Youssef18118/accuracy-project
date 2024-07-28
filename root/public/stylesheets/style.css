@@ -1,0 +1,138 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Modern sans-serif font */
+    margin: 0;
+    padding: 0;
+    display: flex; /* For sticky footer */
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;  /* Allow main content to grow */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+h1, h2, h3, p {
+    font-weight: 400; /* Slightly lighter font weight for a modern feel */
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #f8f9fa; /* Light background */
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Make the navbar sticky */
+    top: 0;
+    z-index: 1000; /* Ensure the navbar is always on top */
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+}
+
+.nav-link {
+    color: #343a40; /* Dark text for contrast */
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #007bff; /* Blue accent on hover */
+}
+
+/* Leaderboard Table Styles */
+#leaderboard-table {
+    width: 100%; /* Or set a specific width */
+    border-collapse: collapse; 
+}
+
+#leaderboard-table .tabulator-cell {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6; /* Light border */
+}
+
+/* Lightened Theme for Tabulator Table */
+.tabulator-light-theme .tabulator-cell { 
+    background-color: #f8f9fa; 
+    color: #343a40;          
+}
+
+.tabulator-light-theme .tabulator-header { 
+    background-color: #e9ecef; 
+}
+
+
+/* Footer Styles */
+.footer {
+    background-color: #343a40; /* Dark background */
+    padding: 1rem 0;
+    text-align: center;
+    color: white;
+    margin-top: auto;
+}
+
+/* Login and Signup Page Styles */
+main {
+    display: flex; /* Center content using Flexbox */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Adjust to your preference */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 2rem; /* Add some spacing */
+    color: #343a40;    /* Dark text for contrast */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* Adjust width as needed */
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button[type="submit"] {
+    background-color: #007bff; /* Primary blue button */
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease; /* Add hover transition */
+}
+
+button[type="submit"]:hover {
+    background-color: #0069d9; /* Darker blue on hover */
+}
+
+/* Flash Message Styling (for errors/success) */
+.flash-error {
+    color: #dc3545; /* Red error message */
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Anayst's detailed page */
+#prediction-table {
+    width: 80%; /* Or a fixed width like 800px */
+    height: auto; /* Allow the height to adjust dynamically to the content */
+    margin: 20px auto; /* Center the table */
+}
